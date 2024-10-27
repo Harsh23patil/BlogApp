@@ -67,4 +67,3 @@ Tech
 4) get_it for dependency injection
 5) Hive for local Storage
 6) fpDart for function programming
-
