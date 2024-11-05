@@ -10,6 +10,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 final servieceLoacator = GetIt.instance;
 
 Future<void> initDependancies() async {
+  _intiAuth();
   final supabase = await Supabase.initialize(
     url: AppSecrets.url,
     anonKey: AppSecrets.anons,
@@ -29,7 +30,7 @@ void _intiAuth() {
     ),
   );
 
-  servieceLoacator.registerFactory (
+  servieceLoacator.registerFactory(
     () => UserSignUp(
       servieceLoacator(),
     ),

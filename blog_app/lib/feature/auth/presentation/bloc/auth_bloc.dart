@@ -1,4 +1,4 @@
-import 'package:blog_app/core/error/failure.dart';
+import 'package:blog_app/feature/auth/domain/entity/user.dart';
 import 'package:blog_app/feature/auth/domain/usecases/user_sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         super(AuthInitial()) {
     on<AuthSignUp>(
       (event, emit) async {
+        emit(AuthLoading()); 
         final res = await _userSignUp(
           UserSignUpParams(
             name: event.name,
