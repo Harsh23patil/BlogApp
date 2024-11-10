@@ -2,6 +2,7 @@ import 'package:blog_app/core/secrets/app_secrets.dart';
 import 'package:blog_app/feature/auth/data/datasource/auth_remote_data_source.dart';
 import 'package:blog_app/feature/auth/data/repository/auth_remote_repository_impl.dart';
 import 'package:blog_app/feature/auth/domain/repository/auth_repository.dart';
+import 'package:blog_app/feature/auth/domain/usecases/user_login.dart';
 import 'package:blog_app/feature/auth/domain/usecases/user_sign_up.dart';
 import 'package:blog_app/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -10,6 +11,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 final servieceLoacator = GetIt.instance;
 
 Future<void> initDependancies() async {
+  _intiAuth();
   final supabase = await Supabase.initialize(
     url: AppSecrets.url,
     anonKey: AppSecrets.anons,
@@ -29,15 +31,22 @@ void _intiAuth() {
     ),
   );
 
-  servieceLoacator.registerFactory (
+  servieceLoacator.registerFactory(
     () => UserSignUp(
+      servieceLoacator(),
+    ),
+  );
+
+  servieceLoacator.registerFactory(
+    () => UserLogin(
       servieceLoacator(),
     ),
   );
 
   servieceLoacator.registerLazySingleton(
     () => AuthBloc(
-      userSignUp: servieceLoacator()
+      userSignUp: servieceLoacator(),
+      userLogin: servieceLoacator()
     ),
   );
 
