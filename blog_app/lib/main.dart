@@ -1,3 +1,4 @@
+import 'package:blog_app/core/common/cubits/app_user_cubit/app_user_cubit.dart';
 import 'package:blog_app/core/theme/theme.dart';
 import 'package:blog_app/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/feature/auth/presentation/pages/login_page.dart';
@@ -12,6 +13,9 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (_) => servieceLoacator<AppUserCubit>(),
+        ),
+        BlocProvider(
           create: (_) => servieceLoacator<AuthBloc>(),
         ),
       ],
@@ -20,8 +24,20 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<AuthBloc>().add(AuthIsUserLoggedIn());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +45,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: AppTheme.darkThemeMode,
-      home: const LoginPage(),
+      home: BlocSelector<AppUserCubit, AppUserState, bool>(
+        selector: (state) {
+          return state is AppUserLoggedIn;
+        },
+        builder: (context, isLoggedIn) {
+          if (isLoggedIn) {
+            return const Scaffold(
+              body: Center(child: Text("Loading...")),
+            );
+          }
+          return const LoginPage();
+        },
+      ),
     );
   }
 }
