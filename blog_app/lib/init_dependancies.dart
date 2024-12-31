@@ -1,7 +1,9 @@
+import 'package:blog_app/core/common/cubits/app_user_cubit/app_user_cubit.dart';
 import 'package:blog_app/core/secrets/app_secrets.dart';
 import 'package:blog_app/feature/auth/data/datasource/auth_remote_data_source.dart';
 import 'package:blog_app/feature/auth/data/repository/auth_remote_repository_impl.dart';
 import 'package:blog_app/feature/auth/domain/repository/auth_repository.dart';
+import 'package:blog_app/feature/auth/domain/usecases/current_user.dart';
 import 'package:blog_app/feature/auth/domain/usecases/user_login.dart';
 import 'package:blog_app/feature/auth/domain/usecases/user_sign_up.dart';
 import 'package:blog_app/feature/auth/presentation/bloc/auth_bloc.dart';
@@ -18,36 +20,40 @@ Future<void> initDependancies() async {
   );
 
   servieceLoacator.registerLazySingleton(() => supabase.client);
+
+  // core
+  servieceLoacator.registerLazySingleton(() => AppUserCubit());
 }
 
 void _intiAuth() {
-  servieceLoacator.registerFactory<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(servieceLoacator()),
-  );
-
-  servieceLoacator.registerFactory<AuthRepository>(
-    () => AuthRepositoryImpl(
-      servieceLoacator(),
-    ),
-  );
-
-  servieceLoacator.registerFactory(
-    () => UserSignUp(
-      servieceLoacator(),
-    ),
-  );
-
-  servieceLoacator.registerFactory(
-    () => UserLogin(
-      servieceLoacator(),
-    ),
-  );
-
-  servieceLoacator.registerLazySingleton(
-    () => AuthBloc(
-      userSignUp: servieceLoacator(),
-      userLogin: servieceLoacator()
-    ),
-  );
-
+  servieceLoacator
+    ..registerFactory<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(servieceLoacator()),
+    )
+    ..registerFactory<AuthRepository>(
+      () => AuthRepositoryImpl(
+        servieceLoacator(),
+      ),
+    )
+    ..registerFactory(
+      () => UserSignUp(
+        servieceLoacator(),
+      ),
+    )
+    ..registerFactory(
+      () => UserLogin(
+        servieceLoacator(),
+      ),
+    )
+    ..registerFactory(
+      () => CurrentUser(servieceLoacator()),
+    )
+    ..registerLazySingleton(
+      () => AuthBloc(
+        userSignUp: servieceLoacator(),
+        userLogin: servieceLoacator(),
+        currentUser: servieceLoacator(),
+        appUserCubit: servieceLoacator(),
+      ),
+    );
 }

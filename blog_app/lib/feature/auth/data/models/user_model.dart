@@ -1,4 +1,4 @@
-import 'package:blog_app/feature/auth/domain/entity/user.dart';
+import 'package:blog_app/core/common/entity/user.dart';
 import 'dart:convert';
 
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
@@ -23,4 +23,16 @@ class UserModel extends User {
         "email": email,
         "password": password,
       };
+
+  UserModel copyWith({
+    String? id,
+    String? email,
+    String? password,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      password: password ?? this.password,
+    );
+  }
 }
