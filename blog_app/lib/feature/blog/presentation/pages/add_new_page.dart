@@ -18,7 +18,13 @@ class _AddNewPageState extends State<AddNewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [IconButton(onPressed: (){}, icon: Icon(Icons.done_rounded,))],
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.done_rounded,
+              ))
+        ],
       ),
     );
   }
