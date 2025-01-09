@@ -33,8 +33,8 @@ class _AddNewPageState extends State<AddNewPage> {
     contentContoller.dispose();
   }
 
-  void selectImage() async{
-    final pickedImage = await pickImage(); 
+  void selectImage() async {
+    final pickedImage = await pickImage();
 
     if (pickedImage != null) {
       setState(() {
@@ -42,6 +42,7 @@ class _AddNewPageState extends State<AddNewPage> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,35 +63,55 @@ class _AddNewPageState extends State<AddNewPage> {
           child: Column(
             children: [
               // dotted border box for image selection
-              DottedBorder(
-                color: AppPallete.borderColor,
-                dashPattern: [10, 4],
-                radius: const Radius.circular(10),
-                borderType: BorderType.RRect,
-                child: Container(
-                  height: 150,
-                  width: double.infinity,
-                  child: const Column(
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.folder_open_rounded,
-                        size: 40,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        "Select your image",
-                        style: TextStyle(
-                          fontSize: 15,
+              image != null
+                  ? GestureDetector(
+                    onTap: selectImage,
+                    child: Container(
+                        height: 150,
+                        width: double.infinity,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.file(
+                            image!,
+                            fit: BoxFit.fill,
+                          ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                      ),
+                  )
+                  : GestureDetector(
+                      onTap: () {
+                        selectImage();
+                      },
+                      child: DottedBorder(
+                        color: AppPallete.borderColor,
+                        dashPattern: [10, 4],
+                        radius: const Radius.circular(10),
+                        borderType: BorderType.RRect,
+                        child: Container(
+                          height: 150,
+                          width: double.infinity,
+                          child: const Column(
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.folder_open_rounded,
+                                size: 40,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                "Select your image",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
 
               const SizedBox(
                 height: 20,
