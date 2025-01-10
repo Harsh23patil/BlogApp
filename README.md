@@ -2,7 +2,7 @@
 Blog app with clean architecture, supabase and bloc
 # BlogApp
 Blog app with clean architecture with Bloc and supabase.
-Flutter Clean Architecture Full Course For Beginners - Bloc, Supabase, Hive, GetIt -- By Rivaan Ranawat
+Flutter Clean Architecture Full Course For Beginners - Bloc, Supabase, Hive, GetIt
 
 (00:00:00) Introduction
 (00:01:10) Creating Project
