@@ -41,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       ),
     );
-    print(res.toString());
+    // print(res.toString());
     res.fold(
       (failure) => emit(
         AuthFailure(failure.message),

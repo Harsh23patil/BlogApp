@@ -3,19 +3,20 @@ import 'package:blog_app/feature/blog/domain/entities/blog.dart';
 class BlogModel extends Blog {
   BlogModel({
     required super.id,
-    required super.posetrId,
+    required super.posterId,
     required super.title,
     required super.content,
     required super.topics,
     required super.imageUrl,
     required super.updatedDateTime,
+    super.posterName,
   });
 
   // Factory constructor for creating a Blog instance from a JSON map
   factory BlogModel.fromJson(Map<String, dynamic> json) {
     return BlogModel(
       id: json['id'] as String,
-      posetrId: json['posetr_id'] as String,
+      posterId: json['poster_id'] as String,
       title: json['title'] as String,
       content: json['content'] as String,
       imageUrl: json['image_url'] as String,
@@ -30,7 +31,7 @@ class BlogModel extends Blog {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'posetr_id': posetrId,
+      'poster_id': posterId,
       'title': title,
       'content': content,
       'image_url': imageUrl,
@@ -38,5 +39,27 @@ class BlogModel extends Blog {
       'updated_at':
           updatedDateTime.toIso8601String(), // Converts to ISO 8601 string
     };
+  }
+
+  BlogModel copyWith({
+    String? id,
+    String? posterId,
+    String? title,
+    String? content,
+    String? imageUrl,
+    List<String>? topics,
+    DateTime? updatedDateTime,
+    String? posterName,
+  }) {
+    return BlogModel(
+      id: id ?? this.id,
+      posterId: posterId ?? this.posterId,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      imageUrl: imageUrl ?? this.imageUrl,
+      topics: topics ?? this.topics,
+      updatedDateTime: updatedDateTime ?? this.updatedDateTime,
+      posterName: posterName ?? this.posterName,
+    );
   }
 }
