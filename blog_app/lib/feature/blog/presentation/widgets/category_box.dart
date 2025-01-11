@@ -19,7 +19,7 @@ class CategoryBox extends StatelessWidget {
           )),
       child: Text(
         boxName,
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.w600,
         ),
       ),
