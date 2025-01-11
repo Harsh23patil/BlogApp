@@ -4,6 +4,7 @@ import 'package:blog_app/core/utils/show_snackbar.dart';
 import 'package:blog_app/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/feature/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_app/feature/auth/presentation/widgets/auth_gradient_button.dart';
+import 'package:blog_app/feature/blog/presentation/pages/blog_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -47,6 +48,8 @@ class _SingupPageState extends State<SingupPage> {
             // TODO: implement listener
             if (state is AuthFailure) {
               showSnackbar(context, state.message);
+            }else if(state is AuthSuccess){
+              Navigator.pushAndRemoveUntil(context, BlogPage.route(), (route) => false);
             }
           },
           builder: (context, state) {

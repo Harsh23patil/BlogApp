@@ -17,59 +17,61 @@ class BlogViewerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                blog.title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+      body: Scrollbar(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  blog.title,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                blog.posterName ?? "",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              const SizedBox(
-                height: 6,
-              ),
-              Text(
-                '${blog.updatedDateTime.toString()}  ${calculateReadingTime(blog.content)}min',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: AppPallete.greyColor,
+                Text(
+                  blog.posterName ?? "",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                const SizedBox(
+                  height: 6,
                 ),
-                child: Image.network(
-                  blog.imageUrl,
+                Text(
+                  '${blog.updatedDateTime.toString()}  ${calculateReadingTime(blog.content)}min',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: AppPallete.greyColor,
+                  ),
                 ),
-              ),
-              Text(
-                blog.content,
-                style: TextStyle(
-                  fontSize: 16,
-                  height: 1.6,
+                const SizedBox(
+                  height: 20,
                 ),
-              )
-            ],
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Image.network(
+                    blog.imageUrl,
+                  ),
+                ),
+                Text(
+                  blog.content,
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.6,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
